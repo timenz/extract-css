@@ -3,8 +3,7 @@
 var assert = require('assert'),
     Batch = require('batch'),
     getStylesData = require('style-data'),
-    getStylesheetList = require('list-stylesheets'),
-    getHrefContent = require('href-content');
+    getStylesheetList = require('list-stylesheets');
 
 module.exports = function (html, options, callback) {
     var batch = new Batch(),
@@ -16,11 +15,6 @@ module.exports = function (html, options, callback) {
     if (data.hrefs.length) {
         assert.ok(options.url, 'options.url is required');
     }
-    data.hrefs.forEach(function (stylesheetHref) {
-        batch.push(function (cb) {
-            getHrefContent(stylesheetHref, options.url, cb);
-        });
-    });
     batch.end(function (err, results) {
         var stylesData,
             css;
